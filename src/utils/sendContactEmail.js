@@ -19,13 +19,20 @@ export async function sendContactEmail({ name, email, service, message }) {
     }),
   })
 
-  if (!response.ok) {
-    throw new Error('Failed to send message')
+  let data
+  try {
+    data = await response.json()
+  } catch {
+    throw new Error('network')
   }
 
-  const data = await response.json()
-  if (data.success !== 'true' && data.success !== true) {
-    throw new Error(data.message || 'Failed to send message')
+  const ok = data?.success === true || data?.success === 'true'
+  if (!ok) {
+    const msg = (data?.message || '').toLowerCase()
+    if (msg.includes('activation') || msg.includes('activate')) {
+      throw new Error('activation')
+    }
+    throw new Error(data?.message || 'send_failed')
   }
 
   return data
