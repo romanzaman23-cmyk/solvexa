@@ -258,6 +258,9 @@ export const translations = {
       error: 'Failed to send. Please email us directly.',
       activationNeeded: 'Please activate the form — check info.solvexadigital@gmail.com inbox (spam too) for FormSubmit activation link, then try again.',
     },
+    whatsapp: {
+      chat: 'Chat on WhatsApp',
+    },
     footer: {
       desc: 'Building digital products that help businesses grow. Websites, mobile apps, and everything in between.',
       quickLinks: 'Quick Links',
@@ -488,6 +491,9 @@ export const translations = {
       messageSent: 'تم الإرسال! ✓',
       error: 'فشل الإرسال. راسلنا مباشرة عبر البريد.',
       activationNeeded: 'يرجى تفعيل النموذج — تحقق من بريد info.solvexadigital@gmail.com (ومجلد الرسائل غير المرغوبة) لرابط FormSubmit، ثم حاول مرة أخرى.',
+    },
+    whatsapp: {
+      chat: 'تواصل عبر واتساب',
     },
     footer: {
       desc: 'نبني منتجات رقمية تساعد الشركات على النمو. مواقع وتطبيقات جوال وكل ما بينهما.',
