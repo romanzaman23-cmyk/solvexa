@@ -64,13 +64,15 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="border-t border-white/10 pt-16 pb-8">
+    <footer className="border-t border-white/10 pt-12 sm:pt-16 pb-6 sm:pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
-          <div className="sm:col-span-2 lg:col-span-1">
-            <Logo variant="footer" linkToHome />
-            <p className="mt-4 text-secondary text-sm leading-relaxed max-w-xs">{t('footer.desc')}</p>
-            <div className="flex gap-3 mt-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10 mb-12">
+          <div className="sm:col-span-2 lg:col-span-1 text-center sm:text-start">
+            <div className="flex justify-center sm:justify-start">
+              <Logo variant="footer" linkToHome />
+            </div>
+            <p className="mt-4 text-secondary text-sm leading-relaxed max-w-xs mx-auto sm:mx-0">{t('footer.desc')}</p>
+            <div className="flex gap-3 mt-6 justify-center sm:justify-start">
               {socialLinks.map(({ icon: Icon, href, label }) => (
                 <motion.a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} whileHover={{ y: -3, scale: 1.1 }} className="w-10 h-10 rounded-lg glass flex items-center justify-center text-secondary hover:text-brand-400 hover:border-brand-500/30 transition-colors">
                   <Icon size={16} />
@@ -119,10 +121,10 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
+          <div className="sm:col-span-2 lg:col-span-1">
             <h4 className="font-display font-semibold mb-4">{t('footer.newsletter')}</h4>
             <p className="text-sm text-secondary mb-4">{t('footer.newsletterDesc')}</p>
-            <form className="flex flex-col gap-2 relative" onSubmit={handleNewsletterSubmit}>
+            <form className="flex flex-col gap-2 relative max-w-md sm:max-w-none" onSubmit={handleNewsletterSubmit}>
               <input
                 type="text"
                 name="_honey"
@@ -133,7 +135,7 @@ export default function Footer() {
                 aria-hidden="true"
                 className="absolute opacity-0 pointer-events-none h-0 w-0 overflow-hidden"
               />
-              <div className="flex gap-2">
+              <div className="flex flex-col sm:flex-row gap-2">
                 <input
                   type="email"
                   required
@@ -141,12 +143,12 @@ export default function Footer() {
                   onChange={(e) => setNewsletterEmail(e.target.value)}
                   disabled={newsletterStatus === 'sending'}
                   placeholder={t('footer.emailPlaceholder')}
-                  className="flex-1 min-w-0 px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-sm focus:border-brand-500 focus:outline-none disabled:opacity-60"
+                  className="w-full min-w-0 px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-sm focus:border-brand-500 focus:outline-none disabled:opacity-60"
                 />
                 <button
                   type="submit"
                   disabled={newsletterStatus === 'sending'}
-                  className={`shrink-0 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors cursor-pointer disabled:cursor-not-allowed ${
+                  className={`w-full sm:w-auto shrink-0 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors cursor-pointer disabled:cursor-not-allowed whitespace-nowrap ${
                     newsletterStatus === 'success'
                       ? 'bg-emerald-600 text-white'
                       : newsletterStatus === 'error'

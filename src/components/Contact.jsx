@@ -64,7 +64,7 @@ export default function Contact() {
             : t('contact.sendMessage')
 
   return (
-    <section id="contact" className="py-24 lg:py-32 relative">
+    <section id="contact" className="py-16 sm:py-24 lg:py-32 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.6 }} className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-brand-400 font-semibold text-sm uppercase tracking-wider">{t('contact.label')}</span>
@@ -87,7 +87,7 @@ export default function Contact() {
             ))}
           </motion.div>
 
-          <motion.form initial={{ opacity: 0, x: isRTL ? -30 : 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} onSubmit={handleSubmit} className="lg:col-span-3 glass rounded-3xl p-8 lg:p-10 relative">
+          <motion.form initial={{ opacity: 0, x: isRTL ? -30 : 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} onSubmit={handleSubmit} className="lg:col-span-3 glass rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-10 relative">
             <input
               type="text"
               name="_honey"

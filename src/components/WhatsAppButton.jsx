@@ -19,7 +19,7 @@ export default function WhatsAppButton() {
       transition={{ delay: 1, type: 'spring', stiffness: 260, damping: 20 }}
       whileHover={{ scale: 1.08 }}
       whileTap={{ scale: 0.95 }}
-      className="fixed bottom-5 end-5 sm:bottom-6 sm:end-6 z-[90] group"
+      className="fixed bottom-4 end-4 sm:bottom-6 sm:end-6 z-[90] group"
     >
       <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20 group-hover:opacity-30" />
       <span className="relative flex items-center justify-center w-14 h-14 sm:w-[3.75rem] sm:h-[3.75rem] rounded-full bg-[#25D366] text-white shadow-lg shadow-[#25D366]/40 border-2 border-white/20 hover:bg-[#20BD5A] transition-colors">

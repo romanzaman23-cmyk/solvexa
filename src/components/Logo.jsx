@@ -3,8 +3,8 @@ import { handleNavClick } from '../constants/navLinks'
 const LOGO_SRC = '/solvexa-logo.png'
 
 const sizes = {
-  nav: 'h-16 sm:h-[4.5rem] md:h-20 w-auto max-w-[220px] sm:max-w-[260px]',
-  footer: 'h-48 sm:h-52 w-auto max-w-[280px]',
+  nav: 'h-10 sm:h-12 md:h-14 lg:h-16 w-auto max-w-[140px] sm:max-w-[180px] md:max-w-[220px]',
+  footer: 'h-28 sm:h-36 md:h-44 w-auto max-w-[220px] sm:max-w-[260px]',
   lg: 'h-60 sm:h-72 w-auto max-w-[340px]',
 }
 

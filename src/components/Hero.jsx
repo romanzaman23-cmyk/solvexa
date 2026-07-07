@@ -20,16 +20,16 @@ export default function Hero() {
   ]
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center pt-24 pb-12 sm:pt-28 sm:pb-16 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div className="relative z-10">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-brand-300 mb-6">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <div className="relative z-10 text-center lg:text-start">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-xs sm:text-sm text-brand-300 mb-5 sm:mb-6 max-w-full">
               <HiSparkles className="text-accent-400" />
               {t('hero.badge')}
             </motion.div>
 
-            <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight tracking-tight">
+            <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.15] sm:leading-tight tracking-tight">
               {t('hero.title1')}{' '}
               <span className="text-gradient">{t('hero.titleWeb')}</span>{' '}
               {t('hero.titleAnd')}{' '}
@@ -37,25 +37,25 @@ export default function Hero() {
               {t('hero.title2')}
             </motion.h1>
 
-            <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="mt-6 text-lg sm:text-xl text-secondary max-w-xl leading-relaxed">
+            <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="mt-5 sm:mt-6 text-base sm:text-lg lg:text-xl text-secondary max-w-xl mx-auto lg:mx-0 leading-relaxed">
               {t('hero.subtitle')}
             </motion.p>
 
-            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="mt-10 flex flex-wrap gap-4">
-              <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className="group inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-brand-600 to-accent-600 font-semibold text-white hover:shadow-xl hover:shadow-brand-500/30 hover:scale-105 transition-all cursor-pointer">
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="mt-8 sm:mt-10 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-center lg:justify-start gap-3 sm:gap-4">
+              <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className="group inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-brand-600 to-accent-600 font-semibold text-white hover:shadow-xl hover:shadow-brand-500/30 hover:scale-105 transition-all cursor-pointer text-sm sm:text-base">
                 {t('hero.cta1')}
                 <HiArrowRight className={`transition-transform ${isRTL ? 'rotate-180 group-hover:-translate-x-1' : 'group-hover:translate-x-1'}`} />
               </a>
-              <a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className="inline-flex items-center gap-2 px-8 py-4 rounded-full glass glass-hover font-semibold cursor-pointer">
+              <a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full glass glass-hover font-semibold cursor-pointer text-sm sm:text-base">
                 {t('hero.cta2')}
               </a>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-12 flex flex-wrap gap-8">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-10 sm:mt-12 grid grid-cols-3 gap-3 sm:flex sm:flex-wrap sm:gap-8 sm:justify-center lg:justify-start">
               {stats.map((stat) => (
-                <div key={stat.label}>
-                  <div className="font-display text-2xl sm:text-3xl font-bold text-brand-400">{stat.value}</div>
-                  <div className="text-sm text-secondary mt-1">{stat.label}</div>
+                <div key={stat.label} className="min-w-0">
+                  <div className="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-brand-400">{stat.value}</div>
+                  <div className="text-[11px] sm:text-sm text-secondary mt-1 leading-snug">{stat.label}</div>
                 </div>
               ))}
             </motion.div>

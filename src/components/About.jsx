@@ -9,13 +9,13 @@ export default function About() {
   const statNums = ['5+', '50+', '100+', '15+']
 
   return (
-    <section id="about" className="py-24 lg:py-32 relative">
+    <section id="about" className="py-16 sm:py-24 lg:py-32 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <motion.div initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="relative">
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-to-r from-brand-500/20 to-accent-500/20 rounded-3xl blur-xl" />
-              <div className="relative glass rounded-3xl p-8 lg:p-10">
+              <div className="relative glass rounded-3xl p-5 sm:p-8 lg:p-10">
                 <div className="grid grid-cols-2 gap-4">
                   {dict.about.stats.map((label, i) => (
                     <motion.div key={label} initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="text-center p-4 rounded-2xl bg-white/5">
