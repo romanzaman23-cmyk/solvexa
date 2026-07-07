@@ -5,9 +5,9 @@ import { handleNavClick } from '../constants/navLinks'
 import { useLanguage } from '../i18n/LanguageContext'
 
 const floatingIcons = [
-  { Icon: FaGlobe, x: '10%', y: '20%', delay: 0 },
-  { Icon: FaMobileAlt, x: '85%', y: '15%', delay: 0.5 },
-  { Icon: FaRocket, x: '75%', y: '70%', delay: 1 },
+  { Icon: FaGlobe, className: 'start-[-1.5rem] top-[18%]', delay: 0 },
+  { Icon: FaMobileAlt, className: 'end-[-1rem] top-[8%]', delay: 0.5 },
+  { Icon: FaRocket, className: 'end-[5%] bottom-[5%]', delay: 1 },
 ]
 
 export default function Hero() {
@@ -21,15 +21,9 @@ export default function Hero() {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden">
-      {floatingIcons.map(({ Icon, x, y, delay }, i) => (
-        <motion.div key={i} className="absolute hidden md:flex w-14 h-14 glass rounded-2xl items-center justify-center text-brand-400" style={{ left: x, top: y }} animate={{ y: [0, -15, 0] }} transition={{ duration: 4 + i, repeat: Infinity, delay, ease: 'easeInOut' }}>
-          <Icon size={22} />
-        </motion.div>
-      ))}
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div>
+          <div className="relative z-10">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-brand-300 mb-6">
               <HiSparkles className="text-accent-400" />
               {t('hero.badge')}
@@ -67,9 +61,20 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }} className="relative hidden lg:block">
+          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }} className="relative z-0 hidden lg:block">
             <div className="relative w-full aspect-square max-w-lg mx-auto">
-              <div className="absolute inset-0 bg-gradient-to-br from-brand-500/30 to-accent-500/30 rounded-3xl blur-2xl animate-pulse-glow" />
+              {floatingIcons.map(({ Icon, className, delay }, i) => (
+                <motion.div
+                  key={i}
+                  className={`absolute hidden lg:flex w-14 h-14 glass rounded-2xl items-center justify-center text-brand-400 pointer-events-none ${className}`}
+                  animate={{ y: [0, -15, 0] }}
+                  transition={{ duration: 4 + i, repeat: Infinity, delay, ease: 'easeInOut' }}
+                >
+                  <Icon size={22} />
+                </motion.div>
+              ))}
+
+              <div className="absolute inset-0 bg-gradient-to-br from-brand-500/30 to-accent-500/30 rounded-3xl blur-2xl animate-pulse-glow pointer-events-none" />
               <div className="relative glass rounded-3xl p-6 shadow-2xl">
                 <div className="flex items-center gap-2 mb-4">
                   <div className="w-3 h-3 rounded-full bg-red-500" />
@@ -87,7 +92,7 @@ export default function Hero() {
                   </div>
                 </div>
               </div>
-              <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 3, repeat: Infinity }} className="absolute -bottom-4 start-0 glass rounded-2xl p-4 shadow-xl">
+              <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 3, repeat: Infinity }} className="absolute bottom-0 start-4 translate-y-1/4 glass rounded-2xl p-4 shadow-xl z-10">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-accent-500/20 flex items-center justify-center text-accent-400 text-lg">✓</div>
                   <div>
@@ -96,7 +101,7 @@ export default function Hero() {
                   </div>
                 </div>
               </motion.div>
-              <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 4, repeat: Infinity, delay: 0.5 }} className="absolute -top-4 end-0 glass rounded-2xl p-4 shadow-xl">
+              <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 4, repeat: Infinity, delay: 0.5 }} className="absolute top-0 end-4 -translate-y-1/3 glass rounded-2xl p-4 shadow-xl z-10">
                 <div className="text-2xl font-display font-bold text-gradient">+127%</div>
                 <div className="text-xs text-secondary">{t('hero.engagement')}</div>
               </motion.div>

@@ -8,7 +8,7 @@ import { sendContactEmail } from '../utils/sendContactEmail'
 
 export default function Contact() {
   const { t, isRTL } = useLanguage()
-  const [form, setForm] = useState({ name: '', email: '', service: '', message: '' })
+  const [form, setForm] = useState({ name: '', email: '', service: '', message: '', honey: '' })
   const [status, setStatus] = useState('idle')
   const [errorType, setErrorType] = useState('')
 
@@ -39,10 +39,11 @@ export default function Contact() {
         email: form.email,
         service: serviceLabel,
         message: form.message,
+        honey: form.honey,
       })
       setStatus('success')
       setErrorType('')
-      setForm({ name: '', email: '', service: '', message: '' })
+      setForm({ name: '', email: '', service: '', message: '', honey: '' })
       setTimeout(() => setStatus('idle'), 5000)
     } catch (err) {
       setErrorType(err?.message === 'activation' ? 'activation' : 'error')
@@ -86,7 +87,17 @@ export default function Contact() {
             ))}
           </motion.div>
 
-          <motion.form initial={{ opacity: 0, x: isRTL ? -30 : 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} onSubmit={handleSubmit} className="lg:col-span-3 glass rounded-3xl p-8 lg:p-10">
+          <motion.form initial={{ opacity: 0, x: isRTL ? -30 : 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} onSubmit={handleSubmit} className="lg:col-span-3 glass rounded-3xl p-8 lg:p-10 relative">
+            <input
+              type="text"
+              name="_honey"
+              value={form.honey}
+              onChange={(e) => setForm({ ...form, honey: e.target.value })}
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              className="absolute opacity-0 pointer-events-none h-0 w-0 overflow-hidden"
+            />
             <div className="grid sm:grid-cols-2 gap-5">
               <div>
                 <label htmlFor="name" className="block text-sm text-secondary mb-2">{t('contact.fullName')}</label>

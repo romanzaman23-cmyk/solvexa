@@ -19,6 +19,7 @@ const socialLinks = [
 export default function Footer() {
   const { t } = useLanguage()
   const [newsletterEmail, setNewsletterEmail] = useState('')
+  const [newsletterHoney, setNewsletterHoney] = useState('')
   const [newsletterStatus, setNewsletterStatus] = useState('idle')
   const [newsletterError, setNewsletterError] = useState('')
 
@@ -30,9 +31,10 @@ export default function Footer() {
     setNewsletterError('')
 
     try {
-      await sendNewsletterEmail({ email: newsletterEmail })
+      await sendNewsletterEmail({ email: newsletterEmail, honey: newsletterHoney })
       setNewsletterStatus('success')
       setNewsletterEmail('')
+      setNewsletterHoney('')
       setTimeout(() => setNewsletterStatus('idle'), 5000)
     } catch (err) {
       setNewsletterError(err?.message === 'activation' ? 'activation' : 'error')
@@ -120,7 +122,17 @@ export default function Footer() {
           <div>
             <h4 className="font-display font-semibold mb-4">{t('footer.newsletter')}</h4>
             <p className="text-sm text-secondary mb-4">{t('footer.newsletterDesc')}</p>
-            <form className="flex flex-col gap-2" onSubmit={handleNewsletterSubmit}>
+            <form className="flex flex-col gap-2 relative" onSubmit={handleNewsletterSubmit}>
+              <input
+                type="text"
+                name="_honey"
+                value={newsletterHoney}
+                onChange={(e) => setNewsletterHoney(e.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="absolute opacity-0 pointer-events-none h-0 w-0 overflow-hidden"
+              />
               <div className="flex gap-2">
                 <input
                   type="email"
