@@ -1,9 +1,11 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTwitter } from 'react-icons/fa'
 import { HiMail, HiPhone, HiLocationMarker } from 'react-icons/hi'
 import { mainNavLinks, serviceLinks, handleNavClick, openServiceFromNav } from '../constants/navLinks'
 import { useLanguage } from '../i18n/LanguageContext'
 import { CONTACT_EMAIL, CONTACT_PHONE_DISPLAY, contactLinks } from '../config/contact'
+import { sendNewsletterEmail } from '../utils/sendNewsletterEmail'
 import Vision2030Badge from './Vision2030Badge'
 import Logo from './Logo'
 
@@ -16,6 +18,42 @@ const socialLinks = [
 
 export default function Footer() {
   const { t } = useLanguage()
+  const [newsletterEmail, setNewsletterEmail] = useState('')
+  const [newsletterStatus, setNewsletterStatus] = useState('idle')
+  const [newsletterError, setNewsletterError] = useState('')
+
+  const handleNewsletterSubmit = async (e) => {
+    e.preventDefault()
+    if (newsletterStatus === 'sending') return
+
+    setNewsletterStatus('sending')
+    setNewsletterError('')
+
+    try {
+      await sendNewsletterEmail({ email: newsletterEmail })
+      setNewsletterStatus('success')
+      setNewsletterEmail('')
+      setTimeout(() => setNewsletterStatus('idle'), 5000)
+    } catch (err) {
+      setNewsletterError(err?.message === 'activation' ? 'activation' : 'error')
+      setNewsletterStatus('error')
+      setTimeout(() => {
+        setNewsletterStatus('idle')
+        setNewsletterError('')
+      }, 8000)
+    }
+  }
+
+  const newsletterButtonLabel =
+    newsletterStatus === 'sending'
+      ? t('footer.subscribing')
+      : newsletterStatus === 'success'
+        ? t('footer.subscribed')
+        : newsletterStatus === 'error' && newsletterError === 'activation'
+          ? t('footer.activationNeeded')
+          : newsletterStatus === 'error'
+            ? t('footer.subscribeError')
+            : t('footer.join')
 
   const contactInfo = [
     { icon: HiMail, text: CONTACT_EMAIL, href: contactLinks.email },
@@ -82,11 +120,33 @@ export default function Footer() {
           <div>
             <h4 className="font-display font-semibold mb-4">{t('footer.newsletter')}</h4>
             <p className="text-sm text-secondary mb-4">{t('footer.newsletterDesc')}</p>
-            <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
-              <input type="email" placeholder={t('footer.emailPlaceholder')} className="flex-1 px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-sm focus:border-brand-500 focus:outline-none" />
-              <button type="submit" className="px-4 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-sm font-medium transition-colors cursor-pointer">
-                {t('footer.join')}
-              </button>
+            <form className="flex flex-col gap-2" onSubmit={handleNewsletterSubmit}>
+              <div className="flex gap-2">
+                <input
+                  type="email"
+                  required
+                  value={newsletterEmail}
+                  onChange={(e) => setNewsletterEmail(e.target.value)}
+                  disabled={newsletterStatus === 'sending'}
+                  placeholder={t('footer.emailPlaceholder')}
+                  className="flex-1 min-w-0 px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-sm focus:border-brand-500 focus:outline-none disabled:opacity-60"
+                />
+                <button
+                  type="submit"
+                  disabled={newsletterStatus === 'sending'}
+                  className={`shrink-0 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors cursor-pointer disabled:cursor-not-allowed ${
+                    newsletterStatus === 'success'
+                      ? 'bg-emerald-600 text-white'
+                      : newsletterStatus === 'error'
+                        ? newsletterError === 'activation'
+                          ? 'bg-amber-600 text-white'
+                          : 'bg-red-600 text-white'
+                        : 'bg-brand-600 hover:bg-brand-500 text-white'
+                  }`}
+                >
+                  {newsletterButtonLabel}
+                </button>
+              </div>
             </form>
           </div>
         </div>
