@@ -1,7 +1,8 @@
-import { useState, useEffect, useMemo } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useMemo } from 'react'
+import { motion } from 'framer-motion'
 import { HiX, HiExternalLink } from 'react-icons/hi'
 import ProjectMockup, { MockupThumbnail } from './ProjectMockup'
+import DetailModal from './DetailModal'
 import { handleNavClick } from '../constants/navLinks'
 import { useLanguage } from '../i18n/LanguageContext'
 
@@ -39,20 +40,6 @@ export default function Portfolio() {
     setActiveScreen(screen)
     setSelected(project)
   }
-
-  useEffect(() => {
-    const onKeyDown = (e) => {
-      if (e.key === 'Escape') setSelected(null)
-    }
-    if (selected) {
-      document.body.style.overflow = 'hidden'
-      window.addEventListener('keydown', onKeyDown)
-    }
-    return () => {
-      document.body.style.overflow = ''
-      window.removeEventListener('keydown', onKeyDown)
-    }
-  }, [selected])
 
   return (
     <section id="portfolio" className="py-24 lg:py-32 relative">
@@ -99,60 +86,56 @@ export default function Portfolio() {
         </div>
       </div>
 
-      <AnimatePresence>
+      <DetailModal open={!!selected} onClose={() => setSelected(null)} isRTL={isRTL} ariaLabel={selected?.title}>
         {selected && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[100] flex items-center justify-center p-4" onClick={() => setSelected(null)}>
-            <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
+          <>
+            <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden shrink-0">
+              <ProjectMockup id={selected.mockupId} screen={activeScreen} />
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-black/20 pointer-events-none" />
+              <button type="button" onClick={() => setSelected(null)} className="absolute top-3 end-3 sm:top-4 sm:end-4 w-9 h-9 sm:w-10 sm:h-10 rounded-full glass flex items-center justify-center hover:bg-white/20 transition-colors z-10" aria-label="Close">
+                <HiX size={20} />
+              </button>
+              <div className="absolute bottom-3 start-4 sm:bottom-4 sm:start-6 z-10">
+                <span className="px-3 py-1 rounded-full glass text-xs font-medium">{selected.category}</span>
+              </div>
+            </div>
 
-            <motion.div initial={{ opacity: 0, scale: 0.9, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9, y: 20 }} transition={{ type: 'spring', damping: 25, stiffness: 300 }} onClick={(e) => e.stopPropagation()} dir={isRTL ? 'rtl' : 'ltr'} className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto glass rounded-3xl shadow-2xl shadow-brand-500/10">
-              <div className="relative h-64 sm:h-72 overflow-hidden">
-                <ProjectMockup id={selected.mockupId} screen={activeScreen} />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-black/20 pointer-events-none" />
-                <button type="button" onClick={() => setSelected(null)} className="absolute top-4 end-4 w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-white/20 transition-colors z-10" aria-label="Close">
-                  <HiX size={20} />
-                </button>
-                <div className="absolute bottom-4 start-6 z-10">
-                  <span className="px-3 py-1 rounded-full glass text-xs font-medium">{selected.category}</span>
+            <div className="p-4 sm:p-6 md:p-8">
+              <p className="text-sm text-secondary mb-3">{t('portfolio.clickPreview')}</p>
+              <div className="grid grid-cols-4 gap-1.5 sm:gap-2 md:gap-3 mb-5 sm:mb-6">
+                {selected.screens.map((screen) => (
+                  <MockupThumbnail key={screen} id={selected.mockupId} screen={screen} label={screenLabels[screen] || screen} active={activeScreen === screen} onClick={() => setActiveScreen(screen)} />
+                ))}
+              </div>
+
+              <h3 className="font-display text-xl sm:text-2xl md:text-3xl font-bold">{selected.title}</h3>
+              <p className="mt-3 sm:mt-4 text-secondary text-sm sm:text-base leading-relaxed">{selected.details}</p>
+
+              <div className="mt-5 sm:mt-6 flex flex-wrap gap-3 sm:gap-4">
+                <div className="glass rounded-xl px-4 py-3 min-w-[120px]">
+                  <div className="text-xs text-secondary">{t('portfolio.timeline')}</div>
+                  <div className="font-semibold text-brand-400">{selected.stats.duration}</div>
+                </div>
+                <div className="glass rounded-xl px-4 py-3 min-w-[120px]">
+                  <div className="text-xs text-secondary">{t('portfolio.result')}</div>
+                  <div className="font-semibold text-accent-400">{selected.stats.result}</div>
                 </div>
               </div>
 
-              <div className="p-6 sm:p-8">
-                <p className="text-sm text-secondary mb-3">{t('portfolio.clickPreview')}</p>
-                <div className="grid grid-cols-4 gap-2 sm:gap-3 mb-6">
-                  {selected.screens.map((screen) => (
-                    <MockupThumbnail key={screen} id={selected.mockupId} screen={screen} label={screenLabels[screen] || screen} active={activeScreen === screen} onClick={() => setActiveScreen(screen)} />
-                  ))}
-                </div>
-
-                <h3 className="font-display text-2xl sm:text-3xl font-bold">{selected.title}</h3>
-                <p className="mt-4 text-secondary leading-relaxed">{selected.details}</p>
-
-                <div className="mt-6 flex flex-wrap gap-4">
-                  <div className="glass rounded-xl px-4 py-3">
-                    <div className="text-xs text-secondary">{t('portfolio.timeline')}</div>
-                    <div className="font-semibold text-brand-400">{selected.stats.duration}</div>
-                  </div>
-                  <div className="glass rounded-xl px-4 py-3">
-                    <div className="text-xs text-secondary">{t('portfolio.result')}</div>
-                    <div className="font-semibold text-accent-400">{selected.stats.result}</div>
-                  </div>
-                </div>
-
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {selected.tags.map((tag) => (
-                    <span key={tag} className="px-3 py-1.5 rounded-lg bg-brand-500/10 text-sm text-brand-300 border border-brand-500/20">{tag}</span>
-                  ))}
-                </div>
-
-                <a href="#contact" onClick={(e) => { setSelected(null); handleNavClick(e, 'contact') }} className="mt-8 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-brand-600 to-accent-600 font-semibold text-white hover:shadow-lg hover:shadow-brand-500/30 transition-all cursor-pointer">
-                  {t('portfolio.startProject')}
-                  <HiExternalLink size={16} className={isRTL ? 'scale-x-[-1]' : ''} />
-                </a>
+              <div className="mt-5 sm:mt-6 flex flex-wrap gap-2">
+                {selected.tags.map((tag) => (
+                  <span key={tag} className="px-3 py-1.5 rounded-lg bg-brand-500/10 text-xs sm:text-sm text-brand-300 border border-brand-500/20">{tag}</span>
+                ))}
               </div>
-            </motion.div>
-          </motion.div>
+
+              <a href="#contact" onClick={(e) => { setSelected(null); handleNavClick(e, 'contact') }} className="mt-6 sm:mt-8 inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-brand-600 to-accent-600 text-sm sm:text-base font-semibold text-white hover:shadow-lg hover:shadow-brand-500/30 transition-all cursor-pointer">
+                {t('portfolio.startProject')}
+                <HiExternalLink size={16} className={isRTL ? 'scale-x-[-1]' : ''} />
+              </a>
+            </div>
+          </>
         )}
-      </AnimatePresence>
+      </DetailModal>
     </section>
   )
 }

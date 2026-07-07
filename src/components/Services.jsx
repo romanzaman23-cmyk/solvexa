@@ -1,10 +1,11 @@
 import { useState, useEffect, useMemo } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { FaGlobe, FaMobileAlt, FaPalette, FaCloud, FaCogs, FaChartLine } from 'react-icons/fa'
 import { HiX, HiExternalLink, HiCheckCircle } from 'react-icons/hi'
 import { handleNavClick } from '../constants/navLinks'
 import { useLanguage } from '../i18n/LanguageContext'
 import ServiceVisual from './ServiceVisual'
+import DetailModal from './DetailModal'
 
 const servicesMeta = [
   { slug: 'web-development', icon: FaGlobe, color: 'from-brand-500 to-brand-600' },
@@ -54,21 +55,6 @@ export default function Services() {
     return () => window.removeEventListener('open-service', openService)
   }, [servicesData])
 
-  useEffect(() => {
-    const onKeyDown = (e) => {
-      if (e.key === 'Escape') setSelected(null)
-    }
-    if (selected) {
-      setActiveScreen(0)
-      document.body.style.overflow = 'hidden'
-      window.addEventListener('keydown', onKeyDown)
-    }
-    return () => {
-      document.body.style.overflow = ''
-      window.removeEventListener('keydown', onKeyDown)
-    }
-  }, [selected])
-
   const openService = (service) => {
     setActiveScreen(0)
     setSelected(service)
@@ -105,93 +91,89 @@ export default function Services() {
         </motion.div>
       </div>
 
-      <AnimatePresence>
+      <DetailModal open={!!selected} onClose={() => setSelected(null)} isRTL={isRTL} ariaLabel={selected?.title}>
         {selected && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[100] flex items-center justify-center p-4" onClick={() => setSelected(null)}>
-            <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
+          <>
+            <div className="relative h-44 sm:h-52 md:h-56 overflow-hidden shrink-0">
+              <ServiceVisual slug={selected.slug} screen={activeScreen} />
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent pointer-events-none" />
+              <button type="button" onClick={() => setSelected(null)} className="absolute top-3 end-3 sm:top-4 sm:end-4 w-9 h-9 sm:w-10 sm:h-10 rounded-full glass flex items-center justify-center hover:bg-white/20 transition-colors z-10" aria-label="Close">
+                <HiX size={20} />
+              </button>
+              <div className="absolute bottom-3 start-4 sm:bottom-4 sm:start-6 flex items-center gap-3 z-10">
+                <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br ${selected.color} flex items-center justify-center`}>
+                  <selected.icon className="text-white text-sm" />
+                </div>
+                <span className="px-3 py-1 rounded-full glass text-xs font-medium">{selected.title}</span>
+              </div>
+            </div>
 
-            <motion.div initial={{ opacity: 0, scale: 0.9, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9, y: 20 }} transition={{ type: 'spring', damping: 25, stiffness: 300 }} onClick={(e) => e.stopPropagation()} dir={isRTL ? 'rtl' : 'ltr'} className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto glass rounded-3xl shadow-2xl shadow-brand-500/10">
-              <div className="relative h-56 sm:h-64 overflow-hidden">
-                <ServiceVisual slug={selected.slug} screen={activeScreen} />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent pointer-events-none" />
-                <button type="button" onClick={() => setSelected(null)} className="absolute top-4 end-4 w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-white/20 transition-colors z-10" aria-label="Close">
-                  <HiX size={20} />
-                </button>
-                <div className="absolute bottom-4 start-6 flex items-center gap-3 z-10">
-                  <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${selected.color} flex items-center justify-center`}>
-                    <selected.icon className="text-white" />
-                  </div>
-                  <span className="px-3 py-1 rounded-full glass text-xs font-medium">{selected.title}</span>
+            <div className="p-4 sm:p-6 md:p-8">
+              <p className="text-sm text-secondary mb-3">{t('servicesSection.previewScreens')}</p>
+              <div className="grid grid-cols-4 gap-1.5 sm:gap-2 md:gap-3 mb-5 sm:mb-6">
+                {screenLabels.map((label, idx) => (
+                  <button key={label} type="button" onClick={() => setActiveScreen(idx)} className={`text-start transition-all rounded-xl overflow-hidden border-2 ${activeScreen === idx ? 'border-brand-500 ring-2 ring-brand-500/30' : 'border-white/10 hover:border-brand-500/40'}`}>
+                    <div className="aspect-[4/3]">
+                      <ServiceVisual slug={selected.slug} screen={idx} thumb />
+                    </div>
+                    <span className={`block text-[9px] sm:text-[10px] text-center py-1 truncate px-1 ${activeScreen === idx ? 'text-brand-400 font-medium' : 'text-secondary'}`}>{label}</span>
+                  </button>
+                ))}
+              </div>
+
+              <h3 className="font-display text-xl sm:text-2xl md:text-3xl font-bold">{selected.title}</h3>
+              <p className="mt-3 text-secondary text-sm sm:text-base leading-relaxed">{selected.details}</p>
+              <p className="mt-3 text-secondary/80 text-xs sm:text-sm leading-relaxed">{selected.longDetails}</p>
+
+              <div className="mt-5 sm:mt-6 flex flex-wrap gap-3 sm:gap-4">
+                <div className="glass rounded-xl px-4 py-3 min-w-[120px]">
+                  <div className="text-xs text-secondary">{t('servicesSection.timeline')}</div>
+                  <div className="font-semibold text-brand-400">{selected.stats.timeline}</div>
+                </div>
+                <div className="glass rounded-xl px-4 py-3 min-w-[120px]">
+                  <div className="text-xs text-secondary">{t('servicesSection.experience')}</div>
+                  <div className="font-semibold text-accent-400">{selected.stats.projects}</div>
                 </div>
               </div>
 
-              <div className="p-6 sm:p-8">
-                <p className="text-sm text-secondary mb-3">{t('servicesSection.previewScreens')}</p>
-                <div className="grid grid-cols-4 gap-2 sm:gap-3 mb-6">
-                  {screenLabels.map((label, idx) => (
-                    <button key={label} type="button" onClick={() => setActiveScreen(idx)} className={`text-start transition-all rounded-xl overflow-hidden border-2 ${activeScreen === idx ? 'border-brand-500 ring-2 ring-brand-500/30' : 'border-white/10 hover:border-brand-500/40'}`}>
-                      <div className="aspect-[4/3]">
-                        <ServiceVisual slug={selected.slug} screen={idx} thumb />
-                      </div>
-                      <span className={`block text-[9px] sm:text-[10px] text-center py-1 truncate px-1 ${activeScreen === idx ? 'text-brand-400 font-medium' : 'text-secondary'}`}>{label}</span>
-                    </button>
+              <div className="mt-5 sm:mt-6">
+                <p className="text-sm font-semibold text-white mb-3">{t('servicesSection.whatsIncluded')}</p>
+                <div className="grid sm:grid-cols-2 gap-2">
+                  {selected.features?.map((f) => (
+                    <div key={f} className="flex items-center gap-2 text-sm text-white/90">
+                      <HiCheckCircle className="text-accent-400 flex-shrink-0" size={16} />
+                      {f}
+                    </div>
                   ))}
                 </div>
-
-                <h3 className="font-display text-2xl sm:text-3xl font-bold">{selected.title}</h3>
-                <p className="mt-3 text-secondary leading-relaxed">{selected.details}</p>
-                <p className="mt-3 text-secondary/80 text-sm leading-relaxed">{selected.longDetails}</p>
-
-                <div className="mt-6 flex flex-wrap gap-4">
-                  <div className="glass rounded-xl px-4 py-3">
-                    <div className="text-xs text-secondary">{t('servicesSection.timeline')}</div>
-                    <div className="font-semibold text-brand-400">{selected.stats.timeline}</div>
-                  </div>
-                  <div className="glass rounded-xl px-4 py-3">
-                    <div className="text-xs text-secondary">{t('servicesSection.experience')}</div>
-                    <div className="font-semibold text-accent-400">{selected.stats.projects}</div>
-                  </div>
-                </div>
-
-                <div className="mt-6">
-                  <p className="text-sm font-semibold text-white mb-3">{t('servicesSection.whatsIncluded')}</p>
-                  <div className="grid sm:grid-cols-2 gap-2">
-                    {selected.features?.map((f) => (
-                      <div key={f} className="flex items-center gap-2 text-sm text-white/90">
-                        <HiCheckCircle className="text-accent-400 flex-shrink-0" size={16} />
-                        {f}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="mt-6">
-                  <p className="text-sm font-semibold text-white mb-3">{t('servicesSection.deliverables')}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {selected.deliverables?.map((d) => (
-                      <span key={d} className="px-3 py-1.5 rounded-lg bg-brand-500/10 text-sm text-brand-300 border border-brand-500/20">{d}</span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="mt-6">
-                  <p className="text-sm font-semibold text-white mb-3">{t('servicesSection.technologies')}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {selected.technologies?.map((tech) => (
-                      <span key={tech} className="px-3 py-1.5 rounded-lg bg-white/5 text-sm text-secondary border border-white/10">{tech}</span>
-                    ))}
-                  </div>
-                </div>
-
-                <a href="#contact" onClick={(e) => { setSelected(null); handleNavClick(e, 'contact') }} className="mt-8 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-brand-600 to-accent-600 font-semibold text-white hover:shadow-lg hover:shadow-brand-500/30 transition-all cursor-pointer">
-                  {t('servicesSection.getService')}
-                  <HiExternalLink size={16} className={isRTL ? 'scale-x-[-1]' : ''} />
-                </a>
               </div>
-            </motion.div>
-          </motion.div>
+
+              <div className="mt-5 sm:mt-6">
+                <p className="text-sm font-semibold text-white mb-3">{t('servicesSection.deliverables')}</p>
+                <div className="flex flex-wrap gap-2">
+                  {selected.deliverables?.map((d) => (
+                    <span key={d} className="px-3 py-1.5 rounded-lg bg-brand-500/10 text-xs sm:text-sm text-brand-300 border border-brand-500/20">{d}</span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-5 sm:mt-6">
+                <p className="text-sm font-semibold text-white mb-3">{t('servicesSection.technologies')}</p>
+                <div className="flex flex-wrap gap-2">
+                  {selected.technologies?.map((tech) => (
+                    <span key={tech} className="px-3 py-1.5 rounded-lg bg-white/5 text-xs sm:text-sm text-secondary border border-white/10">{tech}</span>
+                  ))}
+                </div>
+              </div>
+
+              <a href="#contact" onClick={(e) => { setSelected(null); handleNavClick(e, 'contact') }} className="mt-6 sm:mt-8 inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-brand-600 to-accent-600 text-sm sm:text-base font-semibold text-white hover:shadow-lg hover:shadow-brand-500/30 transition-all cursor-pointer">
+                {t('servicesSection.getService')}
+                <HiExternalLink size={16} className={isRTL ? 'scale-x-[-1]' : ''} />
+              </a>
+            </div>
+          </>
         )}
-      </AnimatePresence>
+      </DetailModal>
     </section>
   )
 }
