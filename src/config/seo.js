@@ -42,7 +42,7 @@ export const organizationSchema = {
   sameAs: [
     'https://facebook.com',
     'https://instagram.com',
-    'https://linkedin.com',
+    'https://www.linkedin.com/in/solvexa-digital-solutions-provider-b092a8403/',
     'https://twitter.com',
   ],
 }

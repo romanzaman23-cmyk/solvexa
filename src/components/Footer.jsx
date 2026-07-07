@@ -12,7 +12,7 @@ import Logo from './Logo'
 const socialLinks = [
   { icon: FaFacebookF, href: 'https://facebook.com', label: 'Facebook' },
   { icon: FaInstagram, href: 'https://instagram.com', label: 'Instagram' },
-  { icon: FaLinkedinIn, href: 'https://linkedin.com', label: 'LinkedIn' },
+  { icon: FaLinkedinIn, href: 'https://www.linkedin.com/in/solvexa-digital-solutions-provider-b092a8403/?skipRedirect=true', label: 'LinkedIn' },
   { icon: FaTwitter, href: 'https://twitter.com', label: 'Twitter' },
 ]
 
