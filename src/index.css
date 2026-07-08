@@ -29,18 +29,6 @@
 
     @apply antialiased;
 
-    overscroll-behavior-y: none;
-
-  }
-
-
-
-  section {
-
-    content-visibility: auto;
-
-    contain-intrinsic-size: auto 600px;
-
   }
 
 
@@ -83,7 +71,7 @@
 
   .glass {
 
-    @apply bg-white/[0.06] backdrop-blur-md border border-white/10;
+    @apply bg-white/[0.07] backdrop-blur-sm md:backdrop-blur-md border border-white/10;
 
   }
 

@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { FaGlobe, FaMobileAlt, FaPalette, FaCloud, FaCogs, FaChartLine } from 'react-icons/fa'
 import { HiX, HiExternalLink, HiCheckCircle } from 'react-icons/hi'
-import { handleNavClick } from '../constants/navLinks'
+import { closeModalAndScrollTo } from '../constants/navLinks'
 import { useLanguage } from '../i18n/LanguageContext'
 import ServiceVisual from './ServiceVisual'
 import DetailModal from './DetailModal'
@@ -166,7 +166,7 @@ export default function Services() {
                 </div>
               </div>
 
-              <a href="#contact" onClick={(e) => { setSelected(null); handleNavClick(e, 'contact') }} className="mt-6 sm:mt-8 inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-brand-600 to-accent-600 text-sm sm:text-base font-semibold text-white hover:shadow-lg hover:shadow-brand-500/30 transition-all cursor-pointer">
+              <a href="#contact" onClick={(e) => closeModalAndScrollTo(e, 'contact', () => setSelected(null))} className="mt-6 sm:mt-8 inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-brand-600 to-accent-600 text-sm sm:text-base font-semibold text-white hover:shadow-lg hover:shadow-brand-500/30 transition-all cursor-pointer">
                 {t('servicesSection.getService')}
                 <HiExternalLink size={16} className={isRTL ? 'scale-x-[-1]' : ''} />
               </a>
