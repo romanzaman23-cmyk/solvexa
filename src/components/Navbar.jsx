@@ -129,7 +129,7 @@ export default function Navbar() {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass shadow-lg shadow-black/20' : 'bg-background/90 backdrop-blur-md'}`}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-3 h-16 lg:h-[5.5rem]">
+        <div className="flex items-center justify-between gap-3 h-[4.25rem] sm:h-[4.75rem] lg:h-24">
           <Logo variant="nav" linkToHome onClick={(e) => navClick(e, 'home')} />
 
           <div className="hidden lg:flex items-center gap-1 xl:gap-2 flex-1 justify-center">

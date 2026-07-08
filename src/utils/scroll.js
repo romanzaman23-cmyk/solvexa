@@ -1,7 +1,7 @@
 const MIN_DURATION = 180
 const MAX_DURATION = 320
 const MS_PER_PX = 0.12
-const HEADER_OFFSET = 92
+const HEADER_OFFSET = 100
 
 function easeOutQuad(t) {
   return 1 - (1 - t) * (1 - t)
