@@ -16,7 +16,7 @@ export default function Contact() {
     { icon: HiMail, label: t('contact.email'), value: CONTACT_EMAIL, href: contactLinks.email },
     { icon: HiPhone, label: t('contact.phone'), value: CONTACT_PHONE_DISPLAY, href: contactLinks.phone },
     { icon: FaWhatsapp, label: t('contact.whatsapp'), value: CONTACT_PHONE_DISPLAY, href: contactLinks.whatsapp },
-    { icon: HiLocationMarker, label: t('contact.location'), value: t('contact.locationValue'), href: '#' },
+    { icon: HiLocationMarker, label: t('contact.location'), value: t('contact.locationValue'), href: 'https://maps.google.com/?q=Riyadh+Saudi+Arabia' },
   ]
 
   const serviceOptions = [
@@ -75,7 +75,18 @@ export default function Contact() {
         <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
           <motion.div initial={{ opacity: 0, x: isRTL ? 30 : -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="lg:col-span-2 space-y-4">
             {contactInfo.map((info, i) => (
-              <motion.a key={info.label} href={info.href} initial={{ opacity: 0, x: isRTL ? 20 : -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} whileHover={{ x: isRTL ? -8 : 8 }} className="flex items-center gap-4 glass rounded-2xl p-5 glass-hover">
+              <motion.a
+                key={info.label}
+                href={info.href}
+                target={info.href.startsWith('http') ? '_blank' : undefined}
+                rel={info.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                initial={{ opacity: 0, x: isRTL ? 20 : -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                whileHover={{ x: isRTL ? -8 : 8 }}
+                className="flex items-center gap-4 glass rounded-2xl p-5 glass-hover"
+              >
                 <div className="w-12 h-12 rounded-xl bg-brand-500/20 flex items-center justify-center text-brand-400">
                   <info.icon size={20} />
                 </div>

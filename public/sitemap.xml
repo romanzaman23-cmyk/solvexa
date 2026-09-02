@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://solvexa.com/</loc>
-    <lastmod>2026-07-07</lastmod>
+    <lastmod>2026-09-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://solvexa.com/" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://solvexa.com/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://solvexa.com/" />
+    <image:image>
+      <image:loc>https://solvexa.com/solvexa-logo.png</image:loc>
+      <image:title>Solvexa Digital Solutions Riyadh Saudi Arabia</image:title>
+      <image:caption>Web and mobile app development in Saudi Arabia aligned with Vision 2030</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://solvexa.com/vision2030-logo.png</image:loc>
+      <image:title>Saudi Vision 2030 Partner</image:title>
+      <image:caption>Supporting Saudi Vision 2030 digital transformation</image:caption>
+    </image:image>
   </url>
 </urlset>

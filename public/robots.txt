@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# Host
+Host: https://solvexa.com
+
+# Sitemaps
 Sitemap: https://solvexa.com/sitemap.xml

@@ -1,6 +1,14 @@
 import { useEffect } from 'react'
 import { useLanguage } from '../i18n/LanguageContext'
-import { seo, organizationSchema, localBusinessSchema, websiteSchema, SITE_URL } from '../config/seo'
+import {
+  seo,
+  organizationSchema,
+  localBusinessSchema,
+  websiteSchema,
+  breadcrumbSchema,
+  faqSchema,
+  SITE_URL,
+} from '../config/seo'
 
 function setMeta(name, content, property = false) {
   const attr = property ? 'property' : 'name'
@@ -17,7 +25,7 @@ function setLink(rel, href, attrs = {}) {
   let el = document.querySelector(`link[rel="${rel}"]${attrs.hreflang ? `[hreflang="${attrs.hreflang}"]` : ''}`)
   if (!el) {
     el = document.createElement('link')
-    el.setAttribute('rel', rel)
+    el.setAttribute(rel, rel)
     document.head.appendChild(el)
   }
   el.setAttribute('href', href)
@@ -44,9 +52,10 @@ export default function Seo() {
     setMeta('description', meta.description)
     setMeta('keywords', meta.keywords)
     setMeta('author', 'Solvexa')
-    setMeta('robots', 'index, follow, max-image-preview:large')
+    setMeta('robots', 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1')
+    setMeta('googlebot', 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1')
     setMeta('geo.region', 'SA-01')
-    setMeta('geo.placename', 'Riyadh')
+    setMeta('geo.placename', 'Riyadh, Saudi Arabia')
     setMeta('geo.position', '24.7136;46.6753')
     setMeta('ICBM', '24.7136, 46.6753')
 
@@ -58,18 +67,30 @@ export default function Seo() {
     setMeta('og:locale:alternate', lang === 'ar' ? 'en_SA' : 'ar_SA', true)
     setMeta('og:site_name', 'Solvexa', true)
     setMeta('og:image', `${SITE_URL}/solvexa-logo.png`, true)
+    setMeta('og:image:secure_url', `${SITE_URL}/solvexa-logo.png`, true)
+    setMeta('og:image:type', 'image/png', true)
+    setMeta('og:image:width', '1200', true)
+    setMeta('og:image:height', '630', true)
+    setMeta('og:image:alt', 'Solvexa - Digital Solutions Provider in Riyadh, Saudi Arabia', true)
 
     setMeta('twitter:card', 'summary_large_image')
     setMeta('twitter:title', meta.title)
     setMeta('twitter:description', meta.description)
     setMeta('twitter:image', `${SITE_URL}/solvexa-logo.png`)
+    setMeta('twitter:image:alt', 'Solvexa - Web & Mobile App Development')
 
     setLink('canonical', SITE_URL)
     setLink('alternate', SITE_URL, { hreflang: 'en' })
     setLink('alternate', SITE_URL, { hreflang: 'ar' })
     setLink('alternate', SITE_URL, { hreflang: 'x-default' })
 
-    setJsonLd('schema-org', [organizationSchema, localBusinessSchema, websiteSchema])
+    setJsonLd('schema-org', [
+      organizationSchema,
+      localBusinessSchema,
+      websiteSchema,
+      breadcrumbSchema,
+      faqSchema,
+    ])
   }, [lang, meta])
 
   return null
