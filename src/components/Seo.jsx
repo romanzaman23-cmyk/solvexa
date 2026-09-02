@@ -50,8 +50,8 @@ export default function Seo() {
   useEffect(() => {
     document.title = meta.title
     setMeta('description', meta.description)
-    setMeta('keywords', meta.keywords)
-    setMeta('author', 'Solvexa')
+    setMeta('author', 'Solvexa Digital Solutions')
+    setMeta('publisher', 'Solvexa Digital Solutions')
     setMeta('robots', 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1')
     setMeta('googlebot', 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1')
     setMeta('geo.region', 'SA-01')
@@ -60,24 +60,23 @@ export default function Seo() {
     setMeta('ICBM', '24.7136, 46.6753')
 
     setMeta('og:type', 'website', true)
-    setMeta('og:url', SITE_URL, true)
+    setMeta('og:site_name', 'Solvexa Digital Solutions', true)
     setMeta('og:title', meta.title, true)
     setMeta('og:description', meta.description, true)
     setMeta('og:locale', meta.locale, true)
     setMeta('og:locale:alternate', lang === 'ar' ? 'en_SA' : 'ar_SA', true)
-    setMeta('og:site_name', 'Solvexa', true)
     setMeta('og:image', `${SITE_URL}/solvexa-logo.png`, true)
     setMeta('og:image:secure_url', `${SITE_URL}/solvexa-logo.png`, true)
     setMeta('og:image:type', 'image/png', true)
     setMeta('og:image:width', '1200', true)
     setMeta('og:image:height', '630', true)
-    setMeta('og:image:alt', 'Solvexa - Digital Solutions Provider in Riyadh, Saudi Arabia', true)
+    setMeta('og:image:alt', 'Solvexa Digital Solutions - Digital Solutions Company in Saudi Arabia', true)
 
     setMeta('twitter:card', 'summary_large_image')
     setMeta('twitter:title', meta.title)
     setMeta('twitter:description', meta.description)
     setMeta('twitter:image', `${SITE_URL}/solvexa-logo.png`)
-    setMeta('twitter:image:alt', 'Solvexa - Web & Mobile App Development')
+    setMeta('twitter:image:alt', 'Solvexa Digital Solutions - IT & Digital Solutions Company')
 
     const currentOrigin = typeof window !== 'undefined' && window.location.origin ? window.location.origin : SITE_URL
     const currentCanonical = `${currentOrigin}/`

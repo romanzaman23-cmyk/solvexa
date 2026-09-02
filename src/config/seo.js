@@ -2,19 +2,15 @@ export const SITE_URL = 'https://solvexa.com'
 
 export const seo = {
   en: {
-    title: 'Solvexa | Web Development & Mobile Apps — Riyadh, Saudi Arabia',
+    title: 'Solvexa Digital Solutions | Digital Solutions Company in Saudi Arabia',
     description:
-      'Solvexa builds high-performance custom websites and mobile apps in Riyadh, Saudi Arabia. Web development, iOS & Android apps, UI/UX design — aligned with Vision 2030.',
-    keywords:
-      'web development Saudi Arabia, mobile app development Riyadh, website design KSA, app development company Saudi, custom software Riyadh, UI UX design Saudi Arabia, Vision 2030 digital solutions, Solvexa',
+      'Solvexa Digital Solutions is a Saudi Arabia-based digital solutions company providing website development, web applications, mobile apps, UI/UX design, software solutions, and IT services for businesses across Saudi Arabia.',
     locale: 'en_SA',
   },
   ar: {
-    title: 'سولڤكسا | تطوير مواقع وتطبيقات جوال — الرياض، السعودية',
+    title: 'سولڤكسا للحلول الرقمية | شركة حلول رقمية في المملكة العربية السعودية',
     description:
-      'سولڤكسا تبني مواقع إلكترونية وتطبيقات جوال مخصصة وعالية الأداء في الرياض، المملكة العربية السعودية. تطوير مواقع، تطبيقات iOS و Android، وتصميم UI/UX متوافقة مع رؤية 2030.',
-    keywords:
-      'تطوير مواقع السعودية, تطبيقات جوال الرياض, تصميم مواقع الرياض, شركة برمجة السعودية, برمجة خاصة الرياض, تصميم واجهات المستخدم, رؤية 2030, سولڤكسا',
+      'سولڤكسا للحلول الرقمية هي شركة حلول رقمية رائدة في السعودية تقدم تطوير المواقع، تطبيقات الويب والجوال، تصميم UI/UX، وحلول البرمجيات وتقنية المعلومات للشركات في الرياض وجميع أنحاء المملكة.',
     locale: 'ar_SA',
   },
 }
@@ -23,12 +19,12 @@ export const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   '@id': `${SITE_URL}/#organization`,
-  name: 'Solvexa',
+  name: 'Solvexa Digital Solutions',
   url: SITE_URL,
   logo: {
     '@type': 'ImageObject',
     url: `${SITE_URL}/solvexa-logo.png`,
-    caption: 'Solvexa Digital Solutions',
+    caption: 'Solvexa Digital Solutions - IT & Digital Solutions Company in Saudi Arabia',
   },
   image: `${SITE_URL}/solvexa-logo.png`,
   description: seo.en.description,
@@ -59,7 +55,7 @@ export const localBusinessSchema = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
   '@id': `${SITE_URL}/#localbusiness`,
-  name: 'Solvexa',
+  name: 'Solvexa Digital Solutions',
   image: `${SITE_URL}/solvexa-logo.png`,
   url: SITE_URL,
   telephone: '+966-57-366-0378',
@@ -95,21 +91,21 @@ export const localBusinessSchema = {
   },
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
-    name: 'Digital Services',
+    name: 'Digital & IT Solutions Saudi Arabia',
     itemListElement: [
       {
         '@type': 'Offer',
         itemOffered: {
           '@type': 'Service',
-          name: 'Web Development',
-          description: 'Custom, responsive websites built with React, Next.js, and modern tech stacks.',
+          name: 'Web Development Saudi Arabia',
+          description: 'Custom, responsive websites and web applications built with React, Next.js, and modern tech stacks.',
         },
       },
       {
         '@type': 'Offer',
         itemOffered: {
           '@type': 'Service',
-          name: 'Mobile Applications',
+          name: 'Mobile App Development Saudi Arabia',
           description: 'Native and cross-platform mobile apps for iOS and Android using Flutter & React Native.',
         },
       },
@@ -117,7 +113,7 @@ export const localBusinessSchema = {
         '@type': 'Offer',
         itemOffered: {
           '@type': 'Service',
-          name: 'UI/UX Design',
+          name: 'UI/UX Design Saudi Arabia',
           description: 'Modern user-centered design, Figma wireframes, and interactive prototypes.',
         },
       },
@@ -125,7 +121,7 @@ export const localBusinessSchema = {
         '@type': 'Offer',
         itemOffered: {
           '@type': 'Service',
-          name: 'Cloud Solutions',
+          name: 'Software Development Saudi Arabia',
           description: 'Scalable cloud infrastructure on AWS, Azure, and Google Cloud with high availability.',
         },
       },
@@ -133,15 +129,15 @@ export const localBusinessSchema = {
         '@type': 'Offer',
         itemOffered: {
           '@type': 'Service',
-          name: 'Custom Software',
-          description: 'Tailored enterprise software and internal business automation solutions.',
+          name: 'IT Solutions Saudi Arabia',
+          description: 'Tailored enterprise software, ERP platforms, and internal business automation solutions.',
         },
       },
       {
         '@type': 'Offer',
         itemOffered: {
           '@type': 'Service',
-          name: 'Digital Strategy',
+          name: 'Digital Solutions Riyadh',
           description: 'Strategic consulting and digital roadmap aligned with Saudi Vision 2030.',
         },
       },
@@ -153,7 +149,7 @@ export const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   '@id': `${SITE_URL}/#website`,
-  name: 'Solvexa',
+  name: 'Solvexa Digital Solutions',
   url: SITE_URL,
   inLanguage: ['en-SA', 'ar-SA'],
   publisher: {
@@ -204,26 +200,26 @@ export const faqSchema = {
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'What services does Solvexa provide in Saudi Arabia?',
+      name: 'What services does Solvexa Digital Solutions provide in Saudi Arabia?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Solvexa specializes in custom web development, mobile application development (iOS & Android), UI/UX design, cloud solutions, custom software engineering, and digital strategy consulting in Riyadh, Saudi Arabia.',
+        text: 'Solvexa Digital Solutions is a premier digital solutions company in Saudi Arabia offering custom web development, mobile app development (iOS & Android), UI/UX design, software development, cloud infrastructure, and IT solutions in Riyadh and across Saudi Arabia.',
       },
     },
     {
       '@type': 'Question',
-      name: 'How do Solvexa solutions align with Saudi Vision 2030?',
+      name: 'Why choose Solvexa as your IT and software company in Riyadh, Saudi Arabia?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Solvexa builds cutting-edge, secure, and scalable digital platforms empowering local enterprises and startups across Saudi Arabia to accelerate their digital transformation goals under Vision 2030.',
+        text: 'As a leading IT company in Riyadh, Solvexa delivers high-quality software engineering, modern UI/UX design, fast execution, 24/7 support, and tailored digital solutions aligned with Saudi Vision 2030.',
       },
     },
     {
       '@type': 'Question',
-      name: 'How can I start a project with Solvexa?',
+      name: 'How can I start a project with Solvexa Digital Solutions in Saudi Arabia?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'You can contact Solvexa directly via phone (+966-57-366-0378), email (info.solvexadigital@gmail.com), WhatsApp, or through the contact form on our website for a free consultation and project quote.',
+        text: 'You can contact Solvexa Digital Solutions directly via phone (+966-57-366-0378), email (info.solvexadigital@gmail.com), WhatsApp, or through the contact form on our website for a free consultation and project quote.',
       },
     },
   ],
