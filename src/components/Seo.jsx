@@ -79,10 +79,13 @@ export default function Seo() {
     setMeta('twitter:image', `${SITE_URL}/solvexa-logo.png`)
     setMeta('twitter:image:alt', 'Solvexa - Web & Mobile App Development')
 
-    setLink('canonical', SITE_URL)
-    setLink('alternate', SITE_URL, { hreflang: 'en' })
-    setLink('alternate', SITE_URL, { hreflang: 'ar' })
-    setLink('alternate', SITE_URL, { hreflang: 'x-default' })
+    const currentOrigin = typeof window !== 'undefined' && window.location.origin ? window.location.origin : SITE_URL
+    const currentCanonical = `${currentOrigin}/`
+
+    setLink('canonical', currentCanonical)
+    setLink('alternate', currentCanonical, { hreflang: 'en' })
+    setLink('alternate', currentCanonical, { hreflang: 'ar' })
+    setLink('alternate', currentCanonical, { hreflang: 'x-default' })
 
     setJsonLd('schema-org', [
       organizationSchema,
