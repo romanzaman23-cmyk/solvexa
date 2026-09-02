@@ -2,15 +2,15 @@ export const SITE_URL = 'https://solvexa.com'
 
 export const seo = {
   en: {
-    title: 'Solvexa Digital Solutions | Digital Solutions Company in Saudi Arabia',
+    title: 'Solvexa Digital Solutions | Digital Solutions in Saudi Arabia',
     description:
-      'Solvexa Digital Solutions is a Saudi Arabia-based digital solutions company providing website development, web applications, mobile apps, UI/UX design, software solutions, and IT services for businesses across Saudi Arabia.',
+      'Solvexa Digital Solutions provides web development, mobile apps, UI/UX, software solutions, and IT services for businesses across Riyadh and Saudi Arabia.',
     locale: 'en_SA',
   },
   ar: {
-    title: 'سولڤكسا للحلول الرقمية | شركة حلول رقمية في المملكة العربية السعودية',
+    title: 'سولڤكسا للحلول الرقمية | شركة حلول رقمية في السعودية',
     description:
-      'سولڤكسا للحلول الرقمية هي شركة حلول رقمية رائدة في السعودية تقدم تطوير المواقع، تطبيقات الويب والجوال، تصميم UI/UX، وحلول البرمجيات وتقنية المعلومات للشركات في الرياض وجميع أنحاء المملكة.',
+      'سولڤكسا للحلول الرقمية تقدم تطوير المواقع وتطبيقات الجوال والبرمجيات للشركات في الرياض والمملكة العربية السعودية متوافقة مع رؤية 2030.',
     locale: 'ar_SA',
   },
 }
