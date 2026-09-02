@@ -1,0 +1,5 @@
+{
+  "buildCommand": "npm --prefix solvexa-frontend run build || npm run build",
+  "outputDirectory": "solvexa-frontend/dist",
+  "framework": "vite"
+}
